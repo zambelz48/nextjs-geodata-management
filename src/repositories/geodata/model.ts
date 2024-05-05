@@ -12,7 +12,7 @@ interface GeoDataModelInterface extends Model<GeoData> {
 }
 
 geoDataSchema.statics.findGeodatas = async function findGeodatas() {
-  return mongooseExecutor(async () => this.find({}))
+  return mongooseExecutor(() => this.find({}))
 }
 
 geoDataSchema.statics.findGeodataById = async function findGeodataById(id: string) {

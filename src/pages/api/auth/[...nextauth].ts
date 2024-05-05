@@ -1,8 +1,8 @@
 import NextAuth from "next-auth/next"
 import Credentials from "next-auth/providers/credentials"
 import { NEXTAUTH_SECRET } from "@/configs/env"
-import { UserModel } from "@/repositories/user"
 import { User } from "next-auth"
+import { UserModel } from "@/repositories/user/model"
 
 const authOptions = {
   secret: NEXTAUTH_SECRET,

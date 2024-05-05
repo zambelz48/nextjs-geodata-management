@@ -1,5 +1,5 @@
 import { AuthorizedComponent } from "@/components/AuthorizedComponent"
-import { useGetGeodataById } from "@/repositories/geodata"
+import { useGetGeodataById } from "@/repositories/geodata/hooks"
 import { useRouter } from "next/router"
 import React from "react"
 

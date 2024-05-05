@@ -1,5 +1,5 @@
 import { Button } from "@/components/Button"
-import { useGetGeodatas } from "@/repositories/geodata"
+import { useGetGeodatas } from "@/repositories/geodata/hooks"
 import { useRouter } from "next/router"
 import React from "react"
 

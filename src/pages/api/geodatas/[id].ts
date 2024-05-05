@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { ApiResponseCreator } from "@/utils/apiResponse"
 import ApiErrorFactory from "@/factories/apiErrorFactory"
-import { GeoData, GeoDataModel } from "@/repositories/geodata"
+import { GeoData } from "@/repositories/geodata/schema"
+import { GeoDataModel } from "@/repositories/geodata/model"
 
 const getData = async (
   req: NextApiRequest,
