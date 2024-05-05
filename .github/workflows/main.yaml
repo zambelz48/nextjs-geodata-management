@@ -6,6 +6,8 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
@@ -15,7 +17,7 @@ jobs:
   production-deployment:
     name: GeoData management production deployment
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/heads/main'
     outputs:
       build: ${{ steps.success.outputs.buildStatus }}
     steps:
@@ -48,7 +50,7 @@ jobs:
   staging-deployment:
     name: GeoData management staging deployment
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/head/staging'
+    if: github.ref == 'refs/heads/staging'
     outputs:
       build: ${{ steps.success.outputs.buildStatus }}
     steps:
