@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GeoData, GeometryType } from "@/repositories/geodata/schema"
 
 const is2DArray = (value: any): value is number[][] => {
@@ -23,7 +24,7 @@ const isValidGeometryType = (type: string): type is GeometryType => {
     "LineString",
     "MultiLineString",
     "Polygon",
-    "MultiPolygon"
+    "MultiPolygon",
   ]
   return geometryTypes.indexOf(type) !== -1
 }
@@ -95,6 +96,7 @@ const parseGeojson = (input: string) => {
 }
 
 export const validateGeojson = (input: string): GeoData => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const geoJson = parseGeojson(input)
 
@@ -110,6 +112,7 @@ export const validateGeojson = (input: string): GeoData => {
       throw new Error("Invalid GeoJSON: 'features' is not an array")
     }
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const feature of geoJson["features"]) {
       validateFeatureType(feature["type"])
       validateFeatureProperties(feature["properties"])
@@ -117,7 +120,7 @@ export const validateGeojson = (input: string): GeoData => {
       validateGeometryType(feature["geometry"]["type"])
       validateGeometryCoordinates(
         feature["geometry"]["type"],
-        feature["geometry"]["coordinates"]
+        feature["geometry"]["coordinates"],
       )
     }
 

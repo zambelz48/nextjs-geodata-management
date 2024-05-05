@@ -28,9 +28,9 @@ export default function Page() {
         return {
           type: "Feature",
           properties: feature.properties as GeoJSON.GeoJsonProperties,
-          geometry: feature.geometry as GeoJSON.Geometry
+          geometry: feature.geometry as GeoJSON.Geometry,
         }
-      })
+      }),
     }
 
     return featureCollection
@@ -40,12 +40,13 @@ export default function Page() {
     () => import("@/components/MapView"),
     {
       loading: () => <p>Loading Map</p>,
-      ssr: false
-    }
+      ssr: false,
+    },
   ), [selectedMap])
 
   const activeColor = (id: string) => {
-    if (selectedMap?._id === id) {
+    const { _id } = selectedMap || {}
+    if (_id === id) {
       return "bg-gray-200"
     }
     return ""
@@ -66,15 +67,19 @@ export default function Page() {
           <nav className="space-y-8 text-sm">
             <div className="space-y-2 w-full">
               <div className="flex flex-col space-y-2">
-                {geodataQuery.data?.data && geodataQuery.data.data.map((geodata) => (
-                  <div key={geodata._id}
-                    className={`border-b-2 border-gray-100 cursor-pointer hover:bg-gray-300 ${activeColor(geodata._id)}`}
-                    onClick={() => setSelectedMap(geodata)}
-                  >
-                    <p>{geodata.name}</p>
-                    <p>{geodata.createdBy}</p>
-                  </div>
-                ))}
+                {geodataQuery.data?.data && geodataQuery.data.data.map((geodata) => {
+                  const { _id } = geodata
+                  return (
+                    <div
+                      key={_id}
+                      className={`border-b-2 border-gray-100 cursor-pointer hover:bg-gray-300 ${activeColor(_id)}`}
+                      onClick={() => setSelectedMap(geodata)}
+                    >
+                      <p>{geodata.name}</p>
+                      <p>{geodata.createdBy}</p>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </nav>

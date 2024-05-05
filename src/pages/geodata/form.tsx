@@ -13,8 +13,8 @@ export default function Page() {
   const geodataQuery = useGetGeodataById(
     router.query.id as string,
     {
-      enabled: !!router.query.id
-    }
+      enabled: !!router.query.id,
+    },
   )
 
   React.useEffect(() => {
@@ -46,7 +46,7 @@ export default function Page() {
         const geoJson = validateGeojson(result)
         console.log("[X] valid geoJson: ", geoJson)
       } catch (error) {
-        //@ts-ignore
+        // @ts-ignore
         setErrorMessage(error.message)
         modal.show()
       }
@@ -57,20 +57,22 @@ export default function Page() {
 
   return (
     <>
-    <AuthorizedComponent>
-      <p>TODO: Add button to load GeoJSON from file</p>
-      <p>TODO: Add form to fill manually or from uploaded from file</p>
-      <p>TODO: Add button to save</p>
-      <p>TODO: Add button to delete</p>
-      <p>
-        <label>Upload GeoJSON file:</label>
-        <input type="file"
+      <AuthorizedComponent>
+        <p>TODO: Add button to load GeoJSON from file</p>
+        <p>TODO: Add form to fill manually or from uploaded from file</p>
+        <p>TODO: Add button to save</p>
+        <p>TODO: Add button to delete</p>
+        <p>
+          <label>Upload GeoJSON file:</label>
+          <input
+            type="file"
             accept="application/JSON"
             onChangeCapture={onChangeCapture}
-        />
-      </p>
-    </AuthorizedComponent>
-      <ErrorModal message={errorMessage}
+          />
+        </p>
+      </AuthorizedComponent>
+      <ErrorModal
+        message={errorMessage}
         isOpen={modal.isOpen}
         onClose={modal.close}
       />

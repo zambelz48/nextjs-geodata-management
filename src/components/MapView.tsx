@@ -19,7 +19,7 @@ const MapView: React.FC<GeoJSONProps> = ({
 }) => {
   const mapCenter = {
     lat: -6.895,
-    lng: 107.6215
+    lng: 107.6215,
   }
 
   return (
