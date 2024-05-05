@@ -1,5 +1,14 @@
 import { Schema } from "mongoose"
 
+export type GeometryType =
+  | "Point"
+  | "LineString"
+  | "Polygon"
+  | "MultiPoint"
+  | "MultiLineString"
+  | "MultiPolygon"
+  | "GeometryCollection"
+
 export interface GeoData {
   _id: string
   name: string
@@ -9,14 +18,7 @@ export interface GeoData {
     type: string
     properties: Record<string, unknown>
     geometry: {
-      type:
-        | "Point"
-        | "LineString"
-        | "Polygon"
-        | "MultiPoint"
-        | "MultiLineString"
-        | "MultiPolygon"
-        | "GeometryCollection"
+      type: GeometryType
       coordinates: number[] | number[][] | number[][][]
     }
   }[]
