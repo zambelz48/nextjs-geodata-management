@@ -5,7 +5,9 @@ import {
 export default function Document() {
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <title>Geodata Management</title>
+      </Head>
       <body>
         <Main />
         <NextScript />
