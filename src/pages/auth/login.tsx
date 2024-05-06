@@ -8,7 +8,6 @@ import * as Yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { getProviders, getSession, signIn } from "next-auth/react"
 import { GetServerSidePropsContext } from "next"
-import { useRouter } from "next/router"
 
 interface LoginInput {
   email: string
@@ -40,7 +39,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Page() {
-  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const form = useForm<LoginInput>({
     resolver: yupResolver(loginFormValidationSchema),
@@ -52,13 +50,13 @@ export default function Page() {
       await signIn("credentials", {
         email: value.email,
         password: value.password,
+      }, {
+        callbackUrl: "/",
       })
 
       setIsSubmitting(false)
-      router.replace("/")
     } catch (error) {
       setIsSubmitting(false)
-      console.error("[X] signInError: ", error)
     }
   }
 
