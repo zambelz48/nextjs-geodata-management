@@ -1,3 +1,4 @@
+import React from "react"
 import { Container } from "@/components/Container"
 import { FormContainer } from "@/components/FormContainer"
 import { FormInput } from "@/components/FormInput"
@@ -7,6 +8,7 @@ import * as Yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { getProviders, getSession, signIn } from "next-auth/react"
 import { GetServerSidePropsContext } from "next"
+import { useRouter } from "next/router"
 
 interface LoginInput {
   email: string
@@ -38,19 +40,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 export default function Page() {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
   const form = useForm<LoginInput>({
     resolver: yupResolver(loginFormValidationSchema),
   })
 
   const handleSubmit = async (value: LoginInput) => {
     try {
-      const signInResult = await signIn("credentials", {
+      setIsSubmitting(true)
+      await signIn("credentials", {
         email: value.email,
         password: value.password,
       })
 
-      console.log("[X] signInResult: ", signInResult)
+      setIsSubmitting(false)
+      router.replace("/")
     } catch (error) {
+      setIsSubmitting(false)
       console.error("[X] signInError: ", error)
     }
   }
@@ -72,7 +79,7 @@ export default function Page() {
           name="password"
           error={form.formState.errors.password}
         />
-        <SubmitButton label="Login" />
+        <SubmitButton disabled={isSubmitting} label="Login" />
       </FormContainer>
     </Container>
   )

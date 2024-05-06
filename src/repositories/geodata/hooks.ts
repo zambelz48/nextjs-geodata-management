@@ -1,5 +1,7 @@
 import { ApiResponse } from "@/utils/apiResponse"
-import { UseQueryOptions, useQuery } from "react-query"
+import {
+  UseMutationOptions, UseQueryOptions, useMutation, useQuery,
+} from "react-query"
 import { GeoData } from "./schema"
 
 export const useGetGeodatas = (
@@ -37,4 +39,23 @@ export const useGetGeodataById = (
     },
     opts,
   )
+}
+
+export const useAddGeodata = (
+  opts?: UseMutationOptions<
+    ApiResponse<GeoData>,
+    Error,
+    { body: GeoData }
+  >,
+) => {
+  const saveData = async (body: GeoData) => {
+    const response = await fetch("/api/geodatas", {
+      method: "POST",
+      body: JSON.stringify(body),
+    })
+    const data = await response.json()
+    return data
+  }
+
+  return useMutation(async ({ body }) => saveData(body), opts)
 }
